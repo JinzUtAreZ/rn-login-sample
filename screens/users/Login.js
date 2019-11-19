@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useCallback,
+  useRef
+} from "react";
 import {
   ScrollView,
   View,
@@ -11,12 +17,20 @@ import {
   Image
 } from "react-native";
 
-import { Button } from 'react-native-elements'; 
-
+import { Button, Icon } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
+import Input from "../../components/UI/Input";
+
+import { useDispatch } from "react-redux";
+import * as authActions from "../../store/actions/authActions";
 
 const Login = () => {
   const [buttonWidth, setButtonWidth] = useState();
+  const [userName, setUserName] = useState("");
+  const [passWord, setPassWord] = useState("");
+  const [hidePassWord, sethidePassWord] = useState(true);
+  const hideRef = useRef(hidePassWord);
+  hideRef.current = hidePassWord;
 
   useEffect(() => {
     const updateLayout = () => {
@@ -28,7 +42,7 @@ const Login = () => {
       }
     };
     Dimensions.addEventListener("change", updateLayout);
-    console.log(buttonWidth);
+    //console.log(buttonWidth);
     return () => {
       Dimensions.removeEventListener("change", updateLayout);
     };
@@ -36,6 +50,81 @@ const Login = () => {
 
   const buttontext = "New Member \n\n Sign Up"; // line break in button title
   const buttontext1 = "Forgot Email \n\n Password";
+
+  const FORM_INPUT_CHANGE = "FORM_INPUT_CHANGE";
+  const formReducer = (state, action) => {
+    if (action.type === "FORM_INPUT_CHANGE") {
+      const updatedValues = {
+        ...state.inputValues,
+        [action.input]: action.value
+      };
+      const updatedValid = {
+        ...state.inputValids,
+        [action.input]: action.isValid
+      };
+      let updatedFormIsValid = true;
+      for (const key in updatedValid) {
+        updatedFormIsValid = updatedFormIsValid && updatedValid[key];
+      }
+
+      return {
+        ...state,
+        formIsValid: updatedFormIsValid,
+        inputValues: updatedValues,
+        inputValids: updatedValid
+      };
+    }
+    return state;
+  };
+
+  const [formState, dispatchFormState] = useReducer(formReducer, {
+    inputValues: {
+      userName: "",
+      passWord: ""
+    },
+    inputValids: {
+      userName: false,
+      passWord: false
+    },
+    formIsValid: false
+  });
+
+  const txtChangeHandler = useCallback(
+    (inputName, inputValue, inputValid) => {
+      console.log("dispatch", inputValue, inputValid, inputName);
+
+      dispatchFormState({
+        type: FORM_INPUT_CHANGE,
+        value: inputValue,
+        isValid: inputValid,
+        input: inputName
+      });
+    },
+    [dispatchFormState]
+  );
+
+  const dispatch = useDispatch();
+
+  const signupHandler = () => {
+    console.log(formState.inputValues.userName, formState.inputValues.passWord);
+    dispatch(
+      authActions.addUser(
+        formState.inputValues.userName,
+        formState.inputValues.passWord
+      )
+    );
+  };
+
+  const clickPassword = () => {
+    //setPassWord(text);
+    sethidePassWord(!hidePassWord);
+    setTimeout(() => {
+      sethidePassWord(!hideRef.current);
+      //console.log(hidePassWord, hideRef.current);
+      //// kelangan gumamit ng useRef dito para maset ung value
+    }, 2000);
+  };
+
   return (
     <ScrollView>
       <KeyboardAvoidingView style={styles.screen}>
@@ -49,20 +138,52 @@ const Login = () => {
         <LinearGradient colors={["rgba(0,0,0,0.3)", "transparent"]}>
           <View>
             <View style={styles.inputForm}>
-              <Text style={styles.labelStyle}>Username:</Text>
-              <TextInput
-                style={styles.inputStyle}
-                id="title"
+              <Input
+                id="txtUser"
+                label="Username"
+                errorText="Please enter a valid username"
                 keyboardType="default"
+                autoCapitalize="sentences"
+                autoCorrect
+                returnKeyType="next"
+                style={styles.inputStyle}
+                id="txtUser"
+                onInputChange={txtChangeHandler}
+                initialValue={userName ? userName : ""}
+                initialValid={!!userName}
+                required
+              />
+              <Input
+                id="txtPass"
+                label="Password"
+                errorText="Please enter a valid password"
+                keyboardType="default"
+                autoCapitalize="sentences"
+                autoCorrect
+                returnKeyType="next"
+                style={styles.inputStyle}
+                id="txtPass"
+                secureTextEntry
+                onInputChange={txtChangeHandler}
+                initialValue={passWord ? passWord : ""}
+                initialValid={!!passWord}
+                required
               />
             </View>
 
-            <View style={styles.inputForm}>
-              <Text style={styles.labelStyle}>Password:</Text>
+            <View style={styles.passwordContainer}>
               <TextInput
                 style={styles.inputStyle}
-                id="title"
-                keyboardType="default"
+                autoCorrect={false}
+                secureTextEntry={hidePassWord}
+                placeholder="Password"
+              />
+              <Icon
+                name="ios-eye"
+                type="ionicon"
+                color="#000"
+                size={20}
+                onPress={clickPassword}
               />
             </View>
           </View>
@@ -83,7 +204,7 @@ const Login = () => {
           </View>
           <View style={styles.optionsLoginContainer}>
             <View style={styles.fakeButtonContainer}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={signupHandler}>
                 <Text style={styles.fakeButtonText}>
                   NEW MEMBER {"\n"} {`   `}SIGN UP
                 </Text>
@@ -118,9 +239,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     height: Dimensions.get("window").height
   },
-  labelStyle: {
-    fontSize: 18
-  },
+  // labelStyle: {
+  //   fontSize: 18
+  // },
   loginContainer: {
     padding: 10,
     margin: 10,
@@ -166,18 +287,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden"
   },
-  inputForm: {
-    margin: 10,
-    width: "80%",
-    justifyContent: "center",
-    alignSelf: "center"
-  },
-  inputStyle: {
-    borderBottomColor: "black",
-    borderWidth: 1,
-    borderBottomWidth: 2,
-    fontSize: 18
-  },
+  // inputForm: {
+  //   margin: 10,
+  //   width: "80%",
+  //   justifyContent: "center",
+  //   alignSelf: "center"
+  // },
+  // inputStyle: {
+  //   borderBottomColor: "black",
+  //   borderWidth: 1,
+  //   borderBottomWidth: 2,
+  //   fontSize: 18
+  // },
   imageContainer: {
     marginTop: 20,
     width: "100%",
@@ -195,6 +316,20 @@ const styles = StyleSheet.create({
   buttonDesign: {
     borderRadius: 10,
     backgroundColor: "olive"
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    borderColor: "#000",
+    paddingBottom: 10,
+    margin: 10
+  },
+  inputStyle: {
+    flex: 1
+    // borderBottomColor: "black",
+    // borderWidth: 1,
+    // borderBottomWidth: 2,
+    // fontSize: 18
   }
 });
 export default Login;

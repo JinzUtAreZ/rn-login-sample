@@ -31,3 +31,10 @@ var sharedBlacklist = [
 Button element 
 https://react-native-elements.github.io/react-native-elements/docs/getting_started.html
 npm install react-native-elements
+
+Authentication using firebase
+https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
+https://console.firebase.google.com/u/0/project/rn-myfirst-app/settings/general/
+ get the WEB_API_KEY from the project overview settings.
+
+ 
