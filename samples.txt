@@ -1,0 +1,82 @@
+            
+{/* sample of text input w icons previously in Login.js */}
+{/* 
+            <View style={styles.inputForm1}>
+              <Text style={styles.labelStyle}>Password</Text>
+
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  style={styles.inputStyle}
+                  autoCorrect={false}
+                  secureTextEntry={hidePassWord}
+                  placeholder="Password"
+                />
+                <View style={styles.iconStyling}>
+                  <Icon
+                    name="ios-eye"
+                    type="ionicon"
+                    color="#000"
+                    size={30}
+                    onPress={clickPassword}
+                  />
+                </View>
+              </View>
+            </View> */}
+
+{/* sample of button w/orientation previously in Login.js */}
+{/*          <View style={styles.buttonContainer}>
+            <View style={{ width: buttonWidth }}>
+              <Button buttonStyle={styles.buttonDesign} title={buttontext} />
+            </View>
+            <View style={{ width: buttonWidth }}>
+              <Button buttonStyle={styles.buttonDesign} title={buttontext1} />
+            </View>
+          </View>
+        
+    buttonContainer: {
+    marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
+  buttonDesign: {
+    borderRadius: 10,
+    backgroundColor: "olive"
+  },
+
+          */}
+
+{/* sample of text input universal w/styling previously in Input.js */}
+{/*     // <View style={styles.inputForm}>
+    //   <Text style={styles.labelStyle}>{props.label}</Text>
+    //   <TextInput
+    //     {...props}
+    //     style={styles.inputStyle}
+    //     id="txtPass"
+    //     value={inputState.value}
+    //     onChangeText={txtChangeHandler}
+    //     onBlur={lostFocusHandler}
+    //   />
+    //   {!inputState.isValid && inputState.touched && (
+    //     <View style={styles.errorContainer}>
+    //       <Text style={styles.errorText}>{props.errorText}</Text>
+    //     </View>
+    //   )}
+    // </View> 
+
+  // labelStyle: {
+  //   fontSize: 18
+  // },
+  // inputForm: {
+  //   margin: 10,
+  //   width: "80%",
+  //   justifyContent: "center",
+  //   alignSelf: "center"
+  // },
+  // inputStyle: {
+  //   borderBottomColor: "black",
+  //   borderWidth: 1,
+  //   borderBottomWidth: 2,
+  //   fontSize: 18
+  // },
+
+*/}

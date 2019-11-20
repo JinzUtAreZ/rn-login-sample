@@ -32,6 +32,7 @@ const Login = () => {
   const hideRef = useRef(hidePassWord);
   hideRef.current = hidePassWord;
 
+  //// orientation of layout and buttons ////
   useEffect(() => {
     const updateLayout = () => {
       let deviceWidth = Dimensions.get("window").width;
@@ -47,19 +48,23 @@ const Login = () => {
       Dimensions.removeEventListener("change", updateLayout);
     };
   });
+  //// end of orientation
 
   const buttontext = "New Member \n\n Sign Up"; // line break in button title
   const buttontext1 = "Forgot Email \n\n Password";
 
+  //// universal text input data with validation in Input.js
+  //// need to improve the code!!!
   const FORM_INPUT_CHANGE = "FORM_INPUT_CHANGE";
   const formReducer = (state, action) => {
+    //console.log("formReducer", state, action);
     if (action.type === "FORM_INPUT_CHANGE") {
       const updatedValues = {
-        ...state.inputValues,
+        ...state.inputValue,
         [action.input]: action.value
       };
       const updatedValid = {
-        ...state.inputValids,
+        ...state.inputValid,
         [action.input]: action.isValid
       };
       let updatedFormIsValid = true;
@@ -78,11 +83,11 @@ const Login = () => {
   };
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
-    inputValues: {
+    inputValue: {
       userName: "",
       passWord: ""
     },
-    inputValids: {
+    inputValid: {
       userName: false,
       passWord: false
     },
@@ -102,19 +107,27 @@ const Login = () => {
     },
     [dispatchFormState]
   );
+  //// end of text input
 
   const dispatch = useDispatch();
 
+  //// signing new users to the app
   const signupHandler = () => {
-    console.log(formState.inputValues.userName, formState.inputValues.passWord);
-    dispatch(
-      authActions.addUser(
-        formState.inputValues.userName,
-        formState.inputValues.passWord
-      )
+    console.log(
+      "check",
+      formState.inputValues.userName,
+      formState.inputValues.passWord
     );
+    // dispatch(
+    //   authActions.addUser(
+    //     formState.inputValues.userName,
+    //     formState.inputValues.passWord
+    //   )
+    // );
   };
+  //// end of new users to the app
 
+  //// viewing of password hidden
   const clickPassword = () => {
     //setPassWord(text);
     sethidePassWord(!hidePassWord);
@@ -124,6 +137,7 @@ const Login = () => {
       //// kelangan gumamit ng useRef dito para maset ung value
     }, 2000);
   };
+  //// end of password hidden
 
   return (
     <ScrollView>
@@ -163,27 +177,14 @@ const Login = () => {
                 returnKeyType="next"
                 style={styles.inputStyle}
                 id="txtPass"
-                secureTextEntry
+                //secureTextEntry
                 onInputChange={txtChangeHandler}
                 initialValue={passWord ? passWord : ""}
                 initialValid={!!passWord}
                 required
-              />
-            </View>
-
-            <View style={styles.passwordContainer}>
-              <TextInput
-                style={styles.inputStyle}
-                autoCorrect={false}
                 secureTextEntry={hidePassWord}
-                placeholder="Password"
-              />
-              <Icon
-                name="ios-eye"
-                type="ionicon"
-                color="#000"
-                size={20}
                 onPress={clickPassword}
+                isVisible
               />
             </View>
           </View>
@@ -203,28 +204,19 @@ const Login = () => {
             </View>
           </View>
           <View style={styles.optionsLoginContainer}>
-            <View style={styles.fakeButtonContainer}>
+            <View style={(styles.fakeButtonContainer, { width: buttonWidth })}>
               <TouchableOpacity onPress={signupHandler}>
                 <Text style={styles.fakeButtonText}>
                   NEW MEMBER {"\n"} {`   `}SIGN UP
                 </Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.fakeButtonContainer}>
+            <View style={(styles.fakeButtonContainer, { width: buttonWidth })}>
               <TouchableOpacity>
                 <Text style={styles.fakeButtonText}>
                   FORGOT EMAIL {"\n"} {` `}PASSWORD
                 </Text>
               </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={styles.buttonContainer}>
-            <View style={{ width: buttonWidth }}>
-              <Button buttonStyle={styles.buttonDesign} title={buttontext} />
-            </View>
-            <View style={{ width: buttonWidth }}>
-              <Button buttonStyle={styles.buttonDesign} title={buttontext1} />
             </View>
           </View>
         </LinearGradient>
@@ -235,13 +227,8 @@ const Login = () => {
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-    justifyContent: "flex-start",
-    height: Dimensions.get("window").height
+    flex: 1
   },
-  // labelStyle: {
-  //   fontSize: 18
-  // },
   loginContainer: {
     padding: 10,
     margin: 10,
@@ -285,51 +272,43 @@ const styles = StyleSheet.create({
     backgroundColor: "darkolivegreen",
     color: "white",
     borderRadius: 10,
-    overflow: "hidden"
+    overflow: "hidden",
+    textAlign: "center"
   },
-  // inputForm: {
-  //   margin: 10,
-  //   width: "80%",
-  //   justifyContent: "center",
-  //   alignSelf: "center"
-  // },
-  // inputStyle: {
-  //   borderBottomColor: "black",
-  //   borderWidth: 1,
-  //   borderBottomWidth: 2,
-  //   fontSize: 18
-  // },
   imageContainer: {
     marginTop: 20,
     width: "100%",
-    height: "15%"
+    height: 100
   },
   image: {
     width: "100%",
     height: "100%"
   },
-  buttonContainer: {
-    marginTop: 20,
-    flexDirection: "row",
-    justifyContent: "space-around"
-  },
-  buttonDesign: {
-    borderRadius: 10,
-    backgroundColor: "olive"
-  },
+
   passwordContainer: {
     flexDirection: "row",
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
     borderColor: "#000",
-    paddingBottom: 10,
-    margin: 10
+    paddingBottom: 5,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignSelf: "center"
   },
   inputStyle: {
-    flex: 1
-    // borderBottomColor: "black",
-    // borderWidth: 1,
-    // borderBottomWidth: 2,
-    // fontSize: 18
+    flex: 1,
+    fontSize: 20
+  },
+  iconStyling: {
+    marginRight: 10,
+    marginTop: 5
+  },
+  labelStyle: {
+    fontSize: 18
+  },
+  inputForm1: {
+    width: "80%",
+    justifyContent: "center",
+    alignSelf: "center"
   }
 });
 export default Login;

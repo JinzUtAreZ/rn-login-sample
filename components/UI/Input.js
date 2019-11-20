@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
+import { Button, Icon } from "react-native-elements";
 
 const INPUT_CHANGE = "INPUT_CHANGE";
 const INPUT_BLUR = "INPUT_BLUR";
@@ -33,7 +34,7 @@ const Input = props => {
 
   useEffect(() => {
     if (inputState.touched) {
-      console.log("input", id, inputState.value, inputState.isValid);
+      //console.log("input", id, inputState.value, inputState.isValid);
 
       onInputChange(id, inputState.value, inputState.isValid);
     }
@@ -42,7 +43,7 @@ const Input = props => {
   const txtChangeHandler = text => {
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let isValid = true;
-    console.log("input-isValid", props.required, text);
+    //console.log("input-isValid", props.required, text);
     if (props.required && text.trim().length === 0) {
       isValid = false;
     }
@@ -68,14 +69,28 @@ const Input = props => {
   return (
     <View style={styles.inputForm}>
       <Text style={styles.labelStyle}>{props.label}</Text>
-      <TextInput
-        {...props}
-        style={styles.inputStyle}
-        id="txtPass"
-        value={inputState.value}
-        onChangeText={txtChangeHandler}
-        onBlur={lostFocusHandler}
-      />
+
+      <View style={styles.passwordContainer}>
+        <TextInput
+          {...props}
+          style={styles.inputStyle}
+          id="txtPass"
+          value={inputState.value}
+          onChangeText={txtChangeHandler}
+          onBlur={lostFocusHandler}
+        />
+        <View style={styles.iconStyling}>
+          {props.isVisible && (
+            <Icon
+              name="ios-eye"
+              type="ionicon"
+              color="#000"
+              size={30}
+              onPress={props.onPress}
+            />
+          )}
+        </View>
+      </View>
       {!inputState.isValid && inputState.touched && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{props.errorText}</Text>
@@ -89,21 +104,33 @@ const styles = StyleSheet.create({
   formControl: {
     width: "100%"
   },
-  labelStyle: {
-    fontSize: 18
-  },
-  inputForm: {
-    margin: 10,
-    width: "80%",
+  passwordContainer: {
+    flexDirection: "row",
+    borderBottomWidth: 2,
+    borderColor: "#000",
+    paddingBottom: 5,
+    borderWidth: 1,
     justifyContent: "center",
     alignSelf: "center"
   },
   inputStyle: {
-    borderBottomColor: "black",
-    borderWidth: 1,
-    borderBottomWidth: 2,
+    flex: 1,
+    fontSize: 20
+  },
+  iconStyling: {
+    marginRight: 10,
+    marginTop: 5
+  },
+  labelStyle: {
     fontSize: 18
   },
+  inputForm: {
+    marginTop: 20,
+    width: "80%",
+    justifyContent: "center",
+    alignSelf: "center"
+  },
+
   errorContainer: {
     marginVertical: 5
   },

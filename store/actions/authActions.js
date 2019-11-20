@@ -1,11 +1,14 @@
 export const SIGN_UP = "SIGN_UP";
 export const ERROR_MSG = "ERROR_MSG";
 /// create a new user using firebase db ///
+import env from "../../env";
+
 export const addUser = (email, password) => async dispatch => {
   try {
     console.log(email, password);
+    const apiKey = env().googleApiKey;
     const response = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBj5r6wDCe77_0tyGOoZZAf05ll_XWsi4U",
+      `https://identitytoolkit.googleaps.com/v1/accounts:signUp?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
