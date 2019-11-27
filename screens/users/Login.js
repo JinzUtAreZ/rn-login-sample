@@ -190,7 +190,7 @@ const Login = () => {
           </View>
 
           <View style={styles.loginContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={loginHandler}>
               <Text style={styles.fakeButtonLogin}>LOGIN</Text>
             </TouchableOpacity>
           </View>

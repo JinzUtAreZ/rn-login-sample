@@ -80,3 +80,18 @@
   // },
 
 */}
+
+Navigation knowledge:
+
+props.navigation.navigate({ routeName: "ItemData" }); 
+// navigate => go to instance of page if exist or push a new instance
+props.navigation.push("ItemData");
+// push => push a new instance even if one exist already
+props.navigation.goBack();
+// goBack => goes to previous screen
+props.navigation.pop()
+// same function as goBack but can only be used in STACK NAVIGATOR
+props.navigation.popToTop()
+// goes back to the ROOT SCREEN if there are multiple child screens.
+props.navigation.replace('NewScreen')
+// goes to screen without going back to previous screens ideally use for login screens

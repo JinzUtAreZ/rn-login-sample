@@ -27,6 +27,7 @@ var sharedBlacklist = [
 6. expo install react-native-screens react-native-gesture-handler react-native-reanimated
 7. expo install expo-linear-gradient
 8. device orientation in app.json = { default, portrait, landscape }
+9. expo install react-navigation-tabs
 
 Button element 
 https://react-native-elements.github.io/react-native-elements/docs/getting_started.html
@@ -36,5 +37,8 @@ Authentication using firebase
 https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
 https://console.firebase.google.com/u/0/project/rn-myfirst-app/settings/general/
  get the WEB_API_KEY from the project overview settings.
+ 
+React Native Navigation
+ https://www.reactnativeschool.com/complex-navigation-example-with-react-navigation
 
  

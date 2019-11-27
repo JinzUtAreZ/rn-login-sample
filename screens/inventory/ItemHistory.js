@@ -1,22 +1,20 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const ItemCreation = props => {
+const ItemHistory = () => {
   return (
     <View style={styles.screen}>
-      <Text>ItemCreation</Text>
+      <Text>Item History</Text>
     </View>
   );
 };
 
-ItemCreation.navigationOptions = {
-  headerTitle: "New Inventory"
-};
-
 const styles = StyleSheet.create({
   screen: {
-    flex: 1
+    flex: 1,
+    paddingTop: 20,
+    alignItems: "center"
   }
 });
 
-export default ItemCreation;
+export default ItemHistory;
