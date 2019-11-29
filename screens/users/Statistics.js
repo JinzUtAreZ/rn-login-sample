@@ -3,13 +3,13 @@ import { View, Text, StyleSheet, Button } from "react-native";
 
 import Colors from "../../constants/Colors";
 
-const UserList = props => {
+const Statistics = props => {
   return (
-    <View style={styles.screen}>
-      <Text>UserList Page</Text>
+    <View>
+      <Text>Statistics Page</Text>
       <Button
         color={Colors.tertiaryColor}
-        title="Go to UserList"
+        title="Go to Activity"
         onPress={() => {
           props.navigation.navigate({
             routeName: "Activity"
@@ -20,7 +20,7 @@ const UserList = props => {
   );
 };
 
-UserList.navigationOptions = {
+Statistics.navigationOptions = {
   headerTitle: "Statistics",
   headerStyle: { backgroundColor: Colors.primaryColor }
   //headerTintColor: Colors.tintedText
@@ -28,9 +28,8 @@ UserList.navigationOptions = {
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-    marginTop: 30
+    flex: 1
   }
 });
 
-export default UserList;
+export default Statistics;

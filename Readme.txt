@@ -28,6 +28,10 @@ var sharedBlacklist = [
 7. expo install expo-linear-gradient
 8. device orientation in app.json = { default, portrait, landscape }
 9. expo install react-navigation-tabs
+ FOR BOTTOM TABS STYLING PANGET UNG createBottomTabNavigator
+10. npm install --save react-navigation-material-bottom-tabs
+11. npm install --save react-native-paper 
+12. npm install --save react-navigation-drawer
 
 Button element 
 https://react-native-elements.github.io/react-native-elements/docs/getting_started.html
