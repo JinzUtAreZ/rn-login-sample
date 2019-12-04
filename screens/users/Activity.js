@@ -5,14 +5,14 @@ import Colors from "../../constants/Colors";
 
 const Activity = props => {
   return (
-    <View>
-      <Text>Activity Page</Text>
+    <View style={styles.screen}>
+      <Text>This is Your Activity Page</Text>
       <Button
         color={Colors.tertiaryColor}
-        title="Go to Statistics"
+        title="Go to Messages"
         onPress={() => {
           props.navigation.navigate({
-            routeName: "Statistics"
+            routeName: "Messages"
           });
         }}
       />
@@ -21,7 +21,7 @@ const Activity = props => {
 };
 
 Activity.navigationOptions = {
-  headerTitle: "Statistics",
+  headerTitle: "Activity",
   headerStyle: { backgroundColor: Colors.primaryColor }
   //headerTintColor: Colors.tintedText
 };

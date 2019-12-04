@@ -1,32 +1,30 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { Text, View, StyleSheet, Button } from "react-native";
 
 import CustomHeaderBtns from "../../components/UI/HeaderButtons";
-import Colors from "../../constants/Colors";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import LeftHeaderBtn from "../../components/UI/LeftHeaderBtn";
+import Colors from "../../constants/Colors";
 
-const UserList = props => {
+const UserInfo = props => {
   return (
     <View style={styles.screen}>
-      <Text>This is the UserList Page</Text>
+      <Text>This is the User info screen</Text>
       <Button
         color={Colors.tertiaryColor}
-        title="Go to Information"
+        title="Go to Activity Screen"
         onPress={() => {
-          props.navigation.navigate({
-            routeName: "UserInfo"
-          });
+          props.navigation.navigate({ routeName: "Activity" });
         }}
       />
     </View>
   );
 };
 
-UserList.navigationOptions = navData => {
-  //console.log("list");
+UserInfo.navigationOptions = navData => {
+  //console.log("info");
   return {
-    headerTitle: "USER LIST",
+    headerTitle: "USER INFORMATION",
     headerLeft: <LeftHeaderBtn navData={navData} />
     // headerLeft: (
     //   <HeaderButtons HeaderButtonComponent={CustomHeaderBtns}>
@@ -41,10 +39,11 @@ UserList.navigationOptions = navData => {
     // )
   };
 };
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1
   }
 });
 
-export default UserList;
+export default UserInfo;

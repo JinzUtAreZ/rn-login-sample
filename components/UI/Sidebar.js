@@ -12,7 +12,6 @@ import { Ionicons } from "@expo/vector-icons";
 
 const SideBar = props => (
   <ScrollView>
-    <Text>TEST</Text>
     <ImageBackground
       source={require("../../assets/images/background.png")}
       style={{ width: undefined, padding: 16, paddingTop: 48 }}

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import CustomHeaderBtns from "../../components/UI/HeaderButtons";
 
 import Colors from "../../constants/Colors";
 
@@ -20,10 +22,21 @@ const ItemList = props => {
   );
 };
 
-ItemList.navigationOptions = {
-  headerTitle: "List of Inventory Items",
-  headerStyle: { backgroundColor: Colors.primaryColor }
-  //headerTintColor: Colors.tintedText
+ItemList.navigationOptions = navData => {
+  return {
+    headerTitle: "INVENTORY LIST",
+    headerLeft: (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderBtns}>
+        <Item
+          title="Menu"
+          iconName="ios-menu"
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    )
+  };
 };
 
 const styles = StyleSheet.create({

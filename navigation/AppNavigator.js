@@ -13,9 +13,10 @@ import ItemDataScreen from "../screens/inventory/ItemCreation";
 import ItemReportScreen from "../screens/inventory/ItemReport";
 import ItemHistoryScreen from "../screens/inventory/ItemHistory";
 
-import StatisticScreen from "../screens/users/Statistics";
+import MessageScreen from "../screens/users/Messages";
 import ActivityScreen from "../screens/users/Activity";
 import UserListScreen from "../screens/users/UserList";
+import UserInfoScreen from "../screens/users/UserInfo";
 
 import Colors from "../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
@@ -53,23 +54,6 @@ import SideBar from "../components/UI/Sidebar";
 //     }
 //   }
 // });
-
-// const defaultNavOptions = {
-//   headerStyle: {
-//     backgroundColor: Platform.OS === "android" ? Colors.primaryColor : ""
-//   },
-//   headerTintColor: Platform.OS === "android" ? "white" : Colors.tintedText
-// };
-
-// const ItemNavigator = createStackNavigator(
-//   {
-//     ItemList: ItemListScreen,
-//     ItemCreate: ItemDataScreen,
-//     ItemData: ItemDataScreen,
-//     ItemHistory: ItemHistoryScreen
-//   }
-//   //{ defaultNavigationOptions: defaultNavOptions }
-// );
 
 // const MainTabs = createMaterialBottomTabNavigator(
 //   {
@@ -132,30 +116,87 @@ import SideBar from "../components/UI/Sidebar";
 //   }
 // );
 
+const defaultNavOptions = {
+  headerStyle: {
+    backgroundColor: Platform.OS === "android" ? Colors.primaryColor : ""
+  },
+  headerTintColor: Platform.OS === "android" ? "white" : Colors.tintedText
+};
+
+const ItemNavigator = createStackNavigator(
+  {
+    ItemList: ItemListScreen,
+    ItemCreate: ItemDataScreen,
+    ItemData: ItemDataScreen,
+    ItemHistory: ItemHistoryScreen
+  },
+  { defaultNavigationOptions: defaultNavOptions }
+);
+
+const UserInfoNavi = createStackNavigator(
+  {
+    UserInfo: UserInfoScreen,
+    Activity: ActivityScreen,
+    Messages: MessageScreen
+  },
+  { defaultNavigationOptions: defaultNavOptions }
+);
+
+const UserListNavi = createStackNavigator(
+  {
+    UserList: UserListScreen
+  },
+  { defaultNavigationOptions: defaultNavOptions }
+);
+
+/// STACK NAVIGATOR lang pang redirect
+/// props.navigation.navigate({
+///  routeName: "UserInfo"
+/// });
 const DrawerNavigator = createDrawerNavigator(
   {
-    UserList: {
-      screen: UserListScreen,
+    User: {
+      screen: UserInfoNavi,
       navigationOptions: {
+        title: "Information",
         drawerIcon: ({ tintColor }) => (
           <Feather name="user" size={16} color={tintColor} />
         )
       }
     },
-    Activity: {
-      screen: ActivityScreen,
+    // Activity: {
+    //   screen: ActivityScreen,
+    //   navigationOptions: {
+    //     title: "Activity",
+    //     drawerIcon: ({ tintColor }) => (
+    //       <Feather name="activity" size={16} color={tintColor} />
+    //     )
+    //   }
+    // },
+    // Messages: {
+    //   screen: MessageScreen,
+    //   navigationOptions: {
+    //     title: "Messages",
+    //     drawerIcon: ({ tintColor }) => (
+    //       <Feather name="message-square" size={16} color={tintColor} />
+    //     )
+    //   }
+    // },
+    UserList: {
+      screen: UserListNavi,
       navigationOptions: {
-        title: "Messages",
+        title: "Users List",
         drawerIcon: ({ tintColor }) => (
-          <Feather name="message-square" size={16} color={tintColor} />
+          <Feather name="user-check" size={16} color={tintColor} />
         )
       }
     },
-    Statistic: {
-      screen: StatisticScreen,
+    ProductList: {
+      screen: ItemNavigator,
       navigationOptions: {
+        title: "Product List",
         drawerIcon: ({ tintColor }) => (
-          <Feather name="activity" size={16} color={tintColor} />
+          <Feather name="briefcase" size={16} color={tintColor} />
         )
       }
     }
@@ -163,7 +204,7 @@ const DrawerNavigator = createDrawerNavigator(
   {
     contentComponent: props => <SideBar {...props} />,
 
-    drawerWidth: Dimensions.get("window").width * 0.85,
+    drawerWidth: Dimensions.get("window").width * 0.75,
     hideStatusBar: true,
 
     contentOptions: {
@@ -180,11 +221,12 @@ const DrawerNavigator = createDrawerNavigator(
   }
 );
 
-// const AppNavigator = createSwitchNavigator({
-//   Loading: SplashScreen,
-//   Auth: AuthStack,
-//   App: MainTabs,
-//   Inventory: ItemNavigator
-// });
+const AppNavigator = createSwitchNavigator({
+  Loading: SplashScreen,
+  //Auth: AuthStack,
+  //App: MainTabs,
+  //Inventory: ItemNavigator,
+  AppDetails: DrawerNavigator
+});
 
-export default createAppContainer(DrawerNavigator);
+export default createAppContainer(AppNavigator);
