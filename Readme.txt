@@ -46,4 +46,6 @@ https://console.firebase.google.com/u/0/project/rn-myfirst-app/settings/general/
 React Native Navigation
  https://www.reactnativeschool.com/complex-navigation-example-with-react-navigation
 
+set time out in splash screen
+https://upmostly.com/tutorials/settimeout-in-react-components-using-hooks
  

@@ -24,7 +24,9 @@ import Input from "../../components/UI/Input";
 import { useDispatch } from "react-redux";
 import * as authActions from "../../store/actions/authActions";
 
-const Login = () => {
+import { useNavigation } from "@react-navigation/core";
+
+const Login = props => {
   const [buttonWidth, setButtonWidth] = useState();
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
@@ -112,17 +114,14 @@ const Login = () => {
   const dispatch = useDispatch();
 
   //// signing new users to the app
+
   const signupHandler = () => {
-    console.log(
-      "check",
-      formState.inputValues.userName,
-      formState.inputValues.passWord
-    );
+    props.navigation.navigate("Register");
     // dispatch(
     //   authActions.addUser(
     //     formState.inputValues.userName,
     //     formState.inputValues.passWord
-    //   )
+    //   )s
     // );
   };
   //// end of new users to the app
@@ -138,6 +137,10 @@ const Login = () => {
     }, 2000);
   };
   //// end of password hidden
+
+  const loginHandler = () => {
+    console.log("TAE");
+  };
 
   return (
     <ScrollView>

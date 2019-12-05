@@ -1,29 +1,6 @@
-import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
-
-const getAvailableRoutes = navigation => {
-  let availableRoutes = [];
-  if (!navigation) return availableRoutes;
-
-  const parent = navigation.dangerouslyGetParent();
-  if (parent) {
-    if (parent.router && parent.router.childRouters) {
-      // Grab all the routes the parent defines and add it the list
-      availableRoutes = [
-        ...availableRoutes,
-        ...Object.keys(parent.router.childRouters)
-      ];
-    }
-
-    // Recursively work up the tree until there are none left
-    availableRoutes = [...availableRoutes, ...getAvailableRoutes(parent)];
-  }
-
-  // De-dupe the list and then remove the current route from the list
-  return [...new Set(availableRoutes)].filter(
-    route => route !== navigation.state.routeName
-  );
-};
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+//import { css } from "emotion";
 
 const getRandomColor = () => {
   var letters = "0123456789ABCDEF";
@@ -34,31 +11,53 @@ const getRandomColor = () => {
   return color;
 };
 
-const SplashScreen = ({ navigation }) => {
+const SplashScreen = props => {
+  const [splashText, setSplashText] = useState("The StartUp Screen");
+  const [splashColor, setSplashColor] = useState(getRandomColor());
+  //const [animation, setAnimation] = useState(new Animated.Value(0));
+
+  useEffect(() => {
+    const timer = setTimeout(() => setSplashText("Hello, Asshole!"), 4000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setSplashColor(getRandomColor()), 4000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(
+      () =>
+        props.navigation.navigate({
+          routeName: "Login"
+        }),
+      6000
+    );
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: getRandomColor()
-      }}
-    >
-      {getAvailableRoutes(navigation).map(route => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate(route)}
-          key={route}
-          style={{
-            backgroundColor: "#fff",
-            padding: 10,
-            margin: 10
-          }}
-        >
-          <Text>{route}</Text>
-        </TouchableOpacity>
-      ))}
+    //// dynamic bgcolor changing ////
+    <View style={[styles.screen, { backgroundColor: splashColor }]}>
+      <Text style={styles.textStyles}>{splashText}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    flexWrap: "wrap"
+    //backgroundColor: getRandomColor()
+  },
+  textStyles: {
+    color: "white",
+    fontSize: 40,
+    fontWeight: "bold"
+  }
+});
 
 export default SplashScreen;

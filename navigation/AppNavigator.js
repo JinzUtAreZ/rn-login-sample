@@ -7,7 +7,8 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 import SplashScreen from "../screens/SplashScreen";
-import LoginScreen from "../screens/users/Login";
+import LoginScreen from "../screens/Auth/Login";
+import RegisterScreen from "../screens/Auth/Register";
 import ItemListScreen from "../screens/inventory/ItemList";
 import ItemDataScreen from "../screens/inventory/ItemCreation";
 import ItemReportScreen from "../screens/inventory/ItemReport";
@@ -149,6 +150,16 @@ const UserListNavi = createStackNavigator(
   { defaultNavigationOptions: defaultNavOptions }
 );
 
+const AuthStack = createStackNavigator({
+  Login: {
+    screen: LoginScreen,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Register: RegisterScreen
+});
+
 /// STACK NAVIGATOR lang pang redirect
 /// props.navigation.navigate({
 ///  routeName: "UserInfo"
@@ -223,7 +234,7 @@ const DrawerNavigator = createDrawerNavigator(
 
 const AppNavigator = createSwitchNavigator({
   Loading: SplashScreen,
-  //Auth: AuthStack,
+  Auth: AuthStack,
   //App: MainTabs,
   //Inventory: ItemNavigator,
   AppDetails: DrawerNavigator
