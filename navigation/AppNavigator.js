@@ -157,7 +157,15 @@ const AuthStack = createStackNavigator({
       header: null
     }
   },
-  Register: RegisterScreen
+  Register: {
+    screen: RegisterScreen,
+    navigationOptions: () => ({
+      headerStyle: {
+        backgroundColor: Platform.OS === "android" ? Colors.primaryColor : ""
+      },
+      headerTintColor: Platform.OS === "android" ? "white" : Colors.tintedText
+    })
+  }
 });
 
 /// STACK NAVIGATOR lang pang redirect

@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   inputForm: {
-    marginTop: 20,
+    marginTop: 10,
     width: "80%",
     justifyContent: "center",
     alignSelf: "center"

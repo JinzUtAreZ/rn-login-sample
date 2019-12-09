@@ -33,6 +33,7 @@ var sharedBlacklist = [
 11. npm install --save react-native-paper 
 12. npm install --save react-navigation-drawer
 13. npm install --save react-navigation-header-buttons
+14. npm install --save react-native-material-dropdown
 
 Button element 
 https://react-native-elements.github.io/react-native-elements/docs/getting_started.html
