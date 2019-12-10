@@ -18,6 +18,7 @@ import MessageScreen from "../screens/users/Messages";
 import ActivityScreen from "../screens/users/Activity";
 import UserListScreen from "../screens/users/UserList";
 import UserInfoScreen from "../screens/users/UserInfo";
+import ExampleScreen from "../screens/Auth/DropDownSearch";
 
 import Colors from "../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
@@ -159,12 +160,11 @@ const AuthStack = createStackNavigator({
   },
   Register: {
     screen: RegisterScreen,
-    navigationOptions: () => ({
-      headerStyle: {
-        backgroundColor: Platform.OS === "android" ? Colors.primaryColor : ""
-      },
-      headerTintColor: Platform.OS === "android" ? "white" : Colors.tintedText
-    })
+    navigationOptions: defaultNavOptions
+  },
+  Example: {
+    screen: ExampleScreen,
+    navigationOptions: defaultNavOptions
   }
 });
 

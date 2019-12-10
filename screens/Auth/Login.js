@@ -126,6 +126,10 @@ const Login = props => {
   };
   //// end of new users to the app
 
+  const forgotPassHandler = () => {
+    props.navigation.navigate("Example");
+  };
+
   //// viewing of password hidden
   const clickPassword = () => {
     //setPassWord(text);
@@ -215,7 +219,7 @@ const Login = props => {
               </TouchableOpacity>
             </View>
             <View style={(styles.fakeButtonContainer, { width: buttonWidth })}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={forgotPassHandler}>
                 <Text style={styles.fakeButtonText}>
                   FORGOT EMAIL {"\n"} {` `}PASSWORD
                 </Text>
