@@ -19,6 +19,7 @@ import ActivityScreen from "../screens/users/Activity";
 import UserListScreen from "../screens/users/UserList";
 import UserInfoScreen from "../screens/users/UserInfo";
 import ExampleScreen from "../screens/Auth/DropDownSearch";
+import ParentChild from "../components/Test/Parent";
 
 import Colors from "../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
@@ -164,6 +165,10 @@ const AuthStack = createStackNavigator({
   },
   Example: {
     screen: ExampleScreen,
+    navigationOptions: defaultNavOptions
+  },
+  TestPage: {
+    screen: ParentChild,
     navigationOptions: defaultNavOptions
   }
 });

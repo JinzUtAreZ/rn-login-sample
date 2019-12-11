@@ -130,6 +130,10 @@ const Login = props => {
     props.navigation.navigate("Example");
   };
 
+  const testHandler = () => {
+    props.navigation.navigate("TestPage");
+  };
+
   //// viewing of password hidden
   const clickPassword = () => {
     //setPassWord(text);
@@ -223,6 +227,13 @@ const Login = props => {
                 <Text style={styles.fakeButtonText}>
                   FORGOT EMAIL {"\n"} {` `}PASSWORD
                 </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.optionsLoginContainer}>
+            <View style={(styles.fakeButtonContainer, { width: buttonWidth })}>
+              <TouchableOpacity onPress={testHandler}>
+                <Text style={styles.fakeButtonText}>TEST AREA BUTTON</Text>
               </TouchableOpacity>
             </View>
           </View>

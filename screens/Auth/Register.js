@@ -59,7 +59,7 @@ const Register = props => {
 
   //// sample data searchdropdown ////
 
-  var items = [
+  var selItems = [
     {
       id: 1,
       name: "JavaScript"
@@ -95,11 +95,20 @@ const Register = props => {
   ];
 
   //// sample data searchdropdown ////
+  ParentTextChange = text => {
+    alert(text);
+  };
+
+  ParentItemSelect = item => {
+    alert(JSON.stringify(item));
+  };
 
   return (
     <KeyboardAvoidingView>
-      <ScrollView>
-        <Card style={styles.screen}>
+      <ScrollView keyboardShouldPersistTaps="always">
+        {/* ung presistTaps may connect sa searchdropdown */}
+        {/* <Card style={styles.screen}> */}
+        <View style={styles.screen}>
           <View style={styles.item}>
             <Input
               id="title"
@@ -137,7 +146,6 @@ const Register = props => {
             />
             <Dropdown label="Month" data={getMonths()} />
             <Dropdown label="Day" data={getDays()} />
-            <Dropdown label="Year" data={getYears()} />
           </View>
           <View style={styles.item}>
             <Input
@@ -167,9 +175,15 @@ const Register = props => {
               autoCorrect
               returnKeyType="next"
             />
-            <SearchDropDown seldata={items} />
+            <SearchDropDown
+              onTextChange={ParentTextChange}
+              onItemSelect={ParentItemSelect}
+              selItems={selItems}
+            />
+            <Dropdown label="Year" data={getYears()} />
           </View>
-        </Card>
+        </View>
+        {/* </Card> */}
       </ScrollView>
     </KeyboardAvoidingView>
   );

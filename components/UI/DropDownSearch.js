@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 import SearchableDropdown from "react-native-searchable-dropdown";
 
 const DropDownSearch = props => {
-  const [seldata, setSelData] = useState(props.seldata);
   return (
     <SearchableDropdown
       onTextChange={props.onTextChange}
@@ -13,7 +12,7 @@ const DropDownSearch = props => {
       itemStyle={styles.item}
       itemTextStyle={styles.itemText}
       itemsContainerStyle={styles.itemContainer}
-      items={seldata}
+      items={props.selItems}
       defaultIndex={0}
       placeholder="Please select"
       resetValue={false}
