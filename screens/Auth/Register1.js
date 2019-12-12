@@ -1,123 +1,123 @@
 import React, { useState, useRef } from "react";
 import {
-  ScrollView,
-  View,
+  Button,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
   StyleSheet,
-  KeyboardAvoidingView
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+  ScrollView
 } from "react-native";
 import SearchDropDown from "../../components/UI/DropDownSearch";
-import { Dropdown } from "react-native-material-dropdown";
-import Card from "../../components/UI/Card";
 
-function getMonths() {
-  var monthnum = [];
-  for (var i = 1; i <= 12; i++) {
-    monthnum.push({ value: i });
-    //console.log(i);
+//// sample data searchdropdown ////
+
+var selItems = [
+  {
+    id: 1,
+    name: "JavaScript"
+  },
+  {
+    id: 2,
+    name: "Java"
+  },
+  {
+    id: 3,
+    name: "Ruby"
+  },
+  {
+    id: 4,
+    name: "React Native"
+  },
+  {
+    id: 5,
+    name: "PHP"
+  },
+  {
+    id: 6,
+    name: "Python"
+  },
+  {
+    id: 7,
+    name: "Go"
+  },
+  {
+    id: 8,
+    name: "Swift"
   }
-  //console.log(monthnum);
-  return monthnum;
-}
+];
 
-function getDays() {
-  var daynum = [];
-  for (var i = 1; i <= 31; i++) {
-    daynum.push({ value: i });
-  }
+ParentTextChange = text => {
+  alert(text);
+};
 
-  return daynum;
-}
-
-function getYears() {
-  var yearnum = [];
-  var yearnow = new Date().getFullYear(); //Current Year
-  for (var i = 1950; i <= yearnow; i++) {
-    yearnum.push({ value: i });
-  }
-
-  return yearnum;
-}
+ParentItemSelect = item => {
+  alert(JSON.stringify(item));
+};
 
 const Register1 = props => {
-  var selItems = [
-    {
-      id: 1,
-      name: "JavaScript"
-    },
-    {
-      id: 2,
-      name: "Java"
-    },
-    {
-      id: 3,
-      name: "Ruby"
-    },
-    {
-      id: 4,
-      name: "React Native"
-    },
-    {
-      id: 5,
-      name: "PHP"
-    },
-    {
-      id: 6,
-      name: "Python"
-    },
-    {
-      id: 7,
-      name: "Go"
-    },
-    {
-      id: 8,
-      name: "Swift"
-    }
-  ];
-
-  ParentTextChange = text => {
-    alert(text);
-  };
-
-  ParentItemSelect = item => {
-    alert(JSON.stringify(item));
-  };
-
   return (
-    <KeyboardAvoidingView>
-      <ScrollView keyboardShouldPersistTaps="always">
-        <View style={styles.item}>
-          <Dropdown label="Month" data={getMonths()} />
-          <Dropdown label="Day" data={getDays()} />
-          <Dropdown label="Year" data={getYears()} />
-        </View>
-        <View style={styles.item}>
+    //// kapag nagbaliktad ung scrollview at keyboard pwedeng magscroll
+    //// pero masasapawan ung textinput ng keyboard
+    <ScrollView keyboardShouldPersistTaps="always">
+      <KeyboardAvoidingView
+        style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
+        //behavior="padding"
+        behavior={"position"}
+        enabled
+        keyboardVerticalOffset={100}
+      >
+        {/*  <SafeAreaView style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+        <View style={styles.inner}>
+          <Text style={styles.header}>Header</Text>
+          <TextInput placeholder="Email" style={styles.input} />
+          <TextInput placeholder="Name" style={styles.input} />
+          <TextInput placeholder="Username" style={styles.input} />
+          <TextInput placeholder="Password" style={styles.input} />
+          <TextInput placeholder="Confrim Password" style={styles.input} />
           <SearchDropDown
             onTextChange={ParentTextChange}
             onItemSelect={ParentItemSelect}
             selItems={selItems}
           />
+          <View style={styles.btnContainer}>
+            <Button title="Submit" onPress={() => null} />
+          </View>
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        {/* </TouchableWithoutFeedback>
+      </SafeAreaView> */}
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
-Register1.navigationOptions = {
-  headerTitle: "REGISTER"
-};
-
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    margin: 5,
-    padding: 5,
-    paddingBottom: 30
+  container: {
+    flex: 1
   },
-  item: {
-    width: "50%" // is 50% of container width
+  inner: {
+    padding: 24,
+    flex: 1,
+    justifyContent: "flex-end"
+  },
+  header: {
+    fontSize: 36,
+    marginBottom: 48
+  },
+  input: {
+    height: 40,
+    borderColor: "#000000",
+    borderBottomWidth: 1,
+    marginBottom: 36
+  },
+  btnContainer: {
+    backgroundColor: "white",
+    marginTop: 12
   }
 });
 

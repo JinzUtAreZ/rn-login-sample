@@ -9,6 +9,7 @@ import { createMaterialBottomTabNavigator } from "react-navigation-material-bott
 import SplashScreen from "../screens/SplashScreen";
 import LoginScreen from "../screens/Auth/Login";
 import RegisterScreen from "../screens/Auth/Register";
+import Register1Screen from "../screens/Auth/Register1";
 import ItemListScreen from "../screens/inventory/ItemList";
 import ItemDataScreen from "../screens/inventory/ItemCreation";
 import ItemReportScreen from "../screens/inventory/ItemReport";
@@ -19,7 +20,10 @@ import ActivityScreen from "../screens/users/Activity";
 import UserListScreen from "../screens/users/UserList";
 import UserInfoScreen from "../screens/users/UserInfo";
 import ExampleScreen from "../screens/Auth/DropDownSearch";
+
 import ParentChild from "../components/Test/Parent";
+import RadioButtonScreen from "../components/Test/RBParent";
+import MultiCheckScreen from "../components/Test/MultiCheckBox";
 
 import Colors from "../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
@@ -30,94 +34,6 @@ import SideBar from "../components/UI/Sidebar";
 ///// IMPORTANT REMINDERS //////
 /// Remember laging may sequence na subpages muna at nasa ilalim
 /// ung main pages
-
-// const AuthStack = createStackNavigator({
-//   Landing: {
-//     screen: SplashScreen,
-//     navigationOptions: {
-//       headerTitle: "Landing"
-//     }
-//   },
-//   SignIn: {
-//     screen: SplashScreen,
-//     navigationOptions: {
-//       headerTitle: "Sign In"
-//     }
-//   },
-//   CreateAccount: {
-//     screen: SplashScreen,
-//     navigationOptions: {
-//       headerTitle: "Create Account"
-//     }
-//   },
-//   ForgotPassword: {
-//     screen: SplashScreen,
-//     navigationOptions: {
-//       headerTitle: "Forgot Password"
-//     }
-//   }
-// });
-
-// const MainTabs = createMaterialBottomTabNavigator(
-//   {
-//     List: {
-//       screen: ItemListScreen,
-//       navigationOptions: {
-//         tabBarIcon: tabInfo => {
-//           return (
-//             <FontAwesome name={"list"} size={25} color={tabInfo.tintColor} />
-//           );
-//         },
-//         //tabBarColor: Colors.primaryColor,
-//         tabBarLabel: "LIST OF ITEMS",
-//         tabBarOptions: {
-//           activeTintColor: "white"
-//         }
-//       }
-//     },
-//     History: {
-//       screen: ItemHistoryScreen,
-//       navigationOptions: {
-//         tabBarIcon: tabInfo => {
-//           return (
-//             <FontAwesome name={"history"} size={25} color={tabInfo.tintColor} />
-//           );
-//         },
-//         //tabBarColor: Colors.accentColor,
-//         tabBarLabel: "HISTORY",
-//         tabBarOptions: {
-//           activeTintColor: "white"
-//         }
-//       }
-//     },
-//     Report: {
-//       screen: ItemReportScreen,
-//       navigationOptions: {
-//         tabBarIcon: tabInfo => {
-//           return (
-//             <FontAwesome
-//               name={"file-text-o"}
-//               size={25}
-//               color={tabInfo.tintColor}
-//             />
-//           );
-//         }
-//       },
-//       tabBarLabel: "REPORT",
-//       tabBarOptions: {
-//         activeTintColor: "white"
-//       }
-//     }
-//   },
-//   {
-//     activeColor: "lime",
-//     inactiveColor: "silver",
-//     shifting: true,
-//     barStyle: {
-//       backgroundColor: Colors.tertiaryColor
-//     }
-//   }
-// );
 
 const defaultNavOptions = {
   headerStyle: {
@@ -161,6 +77,7 @@ const AuthStack = createStackNavigator({
   },
   Register: {
     screen: RegisterScreen,
+    //screen: Register1Screen,
     navigationOptions: defaultNavOptions
   },
   Example: {
@@ -168,7 +85,9 @@ const AuthStack = createStackNavigator({
     navigationOptions: defaultNavOptions
   },
   TestPage: {
-    screen: ParentChild,
+    //screen: ParentChild,
+    //screen: RadioButtonScreen,
+    screen: MultiCheckScreen,
     navigationOptions: defaultNavOptions
   }
 });
@@ -188,24 +107,6 @@ const DrawerNavigator = createDrawerNavigator(
         )
       }
     },
-    // Activity: {
-    //   screen: ActivityScreen,
-    //   navigationOptions: {
-    //     title: "Activity",
-    //     drawerIcon: ({ tintColor }) => (
-    //       <Feather name="activity" size={16} color={tintColor} />
-    //     )
-    //   }
-    // },
-    // Messages: {
-    //   screen: MessageScreen,
-    //   navigationOptions: {
-    //     title: "Messages",
-    //     drawerIcon: ({ tintColor }) => (
-    //       <Feather name="message-square" size={16} color={tintColor} />
-    //     )
-    //   }
-    // },
     UserList: {
       screen: UserListNavi,
       navigationOptions: {

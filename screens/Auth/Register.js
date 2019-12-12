@@ -3,12 +3,15 @@ import {
   ScrollView,
   View,
   StyleSheet,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
+
 import Input from "../../components/UI/Input";
 import Card from "../../components/UI/Card";
 import { Dropdown } from "react-native-material-dropdown";
 import SearchDropDown from "../../components/UI/DropDownSearch";
+import RadioButtonGroup from "../../components/UI/RadioButton";
 
 function getMonths() {
   var monthnum = [];
@@ -95,6 +98,28 @@ const Register = props => {
   ];
 
   //// sample data searchdropdown ////
+
+  //// sample data radiobuttons ////
+  const options = [
+    {
+      key: "pay",
+      text: "Most High Pay"
+    },
+    {
+      key: "performance",
+      text: "Most Perfomance"
+    },
+    {
+      key: "aToZ",
+      text: "A - Z"
+    },
+    {
+      key: "zToA",
+      text: "Z - A"
+    }
+  ];
+  //// sample data radiobuttons ////
+
   ParentTextChange = text => {
     alert(text);
   };
@@ -104,8 +129,14 @@ const Register = props => {
   };
 
   return (
-    <KeyboardAvoidingView>
-      <ScrollView keyboardShouldPersistTaps="always">
+    <ScrollView keyboardShouldPersistTaps="always">
+      <KeyboardAvoidingView
+        style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
+        //behavior="padding"
+        behavior={"position"}
+        enabled
+        keyboardVerticalOffset={150}
+      >
         {/* ung presistTaps may connect sa searchdropdown */}
         {/* <Card style={styles.screen}> */}
         <View style={styles.screen}>
@@ -144,8 +175,6 @@ const Register = props => {
               //onInputChange={txtChangeHandler}
               isVisible
             />
-            <Dropdown label="Month" data={getMonths()} />
-            <Dropdown label="Day" data={getDays()} />
           </View>
           <View style={styles.item}>
             <Input
@@ -167,25 +196,49 @@ const Register = props => {
               returnKeyType="next"
             />
             <Input
-              id="title"
+              id="txtPass"
               label="Retype Password"
-              errorText="Please enter a valid title!"
+              errorText="Please enter a valid password"
               keyboardType="default"
               autoCapitalize="sentences"
               autoCorrect
               returnKeyType="next"
+              initialValue={passWord ? passWord : ""}
+              initialValid={!!passWord}
+              required
+              secureTextEntry={hidePassWord}
+              onPress={clickPassword}
+              //onInputChange={txtChangeHandler}
+              isVisible
             />
+          </View>
+        </View>
+        <View style={styles.screen}>
+          <View style={styles.selContainer}>
+            <Dropdown label="Month" data={getMonths()} />
+          </View>
+          <View style={styles.selContainer}>
+            <Dropdown label="Day" data={getDays()} />
+          </View>
+          <View style={styles.selContainer}>
+            <Dropdown label="Year" data={getYears()} />
+          </View>
+        </View>
+        <View style={styles.screen}>
+          <View style={styles.item}>
+            <RadioButtonGroup options={options} />
+          </View>
+          <View style={styles.item}>
             <SearchDropDown
               onTextChange={ParentTextChange}
               onItemSelect={ParentItemSelect}
               selItems={selItems}
             />
-            <Dropdown label="Year" data={getYears()} />
           </View>
         </View>
         {/* </Card> */}
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
@@ -199,12 +252,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    margin: 5,
-    padding: 5,
-    paddingBottom: 30
+    paddingBottom: 5
   },
   item: {
     width: "50%" // is 50% of container width
+  },
+  selContainer: {
+    marginLeft: 10,
+    marginRight: 10,
+    width: "27%"
   }
 });
 

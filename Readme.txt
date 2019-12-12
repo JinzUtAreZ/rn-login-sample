@@ -51,3 +51,5 @@ React Native Navigation
 set time out in splash screen
 https://upmostly.com/tutorials/settimeout-in-react-components-using-hooks
  
+ javascript debugging 
+ https://www.youtube.com/watch?v=-bS6u_oQFtc
