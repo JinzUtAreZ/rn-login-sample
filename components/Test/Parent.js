@@ -74,6 +74,10 @@ const Parent = () => {
   );
 };
 
+Parent.navigationOptions = {
+  headerTitle: "PARENT CHILD PROPS"
+};
+
 const styles = StyleSheet.create({});
 
 export default Parent;

@@ -21,7 +21,8 @@ import UserListScreen from "../screens/users/UserList";
 import UserInfoScreen from "../screens/users/UserInfo";
 import ExampleScreen from "../screens/Auth/DropDownSearch";
 
-import ParentChild from "../components/Test/Parent";
+import TestPageScreen from "../screens/Auth/TestPage";
+import ParentChildScreen from "../components/Test/Parent";
 import RadioButtonScreen from "../components/Test/RBParent";
 import MultiCheckScreen from "../components/Test/MultiCheckBox";
 
@@ -83,14 +84,26 @@ const AuthStack = createStackNavigator({
   Example: {
     screen: ExampleScreen,
     navigationOptions: defaultNavOptions
-  },
-  TestPage: {
-    //screen: ParentChild,
-    //screen: RadioButtonScreen,
-    screen: MultiCheckScreen,
-    navigationOptions: defaultNavOptions
   }
+  // TestPage: {
+  //   //screen: ParentChild,
+  //   //screen: RadioButtonScreen,
+  //   screen: MultiCheckScreen,
+  //   navigationOptions: defaultNavOptions
+  // }
 });
+
+const TestStack = createStackNavigator(
+  {
+    ElementSample: TestPageScreen,
+    ParentChild: ParentChildScreen,
+    RadioButton: RadioButtonScreen,
+    MultiCheck: MultiCheckScreen
+  },
+  {
+    defaultNavigationOptions: defaultNavOptions
+  }
+);
 
 /// STACK NAVIGATOR lang pang redirect
 /// props.navigation.navigate({
@@ -151,6 +164,7 @@ const AppNavigator = createSwitchNavigator({
   Auth: AuthStack,
   //App: MainTabs,
   //Inventory: ItemNavigator,
+  Test: TestStack,
   AppDetails: DrawerNavigator
 });
 

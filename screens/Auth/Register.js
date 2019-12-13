@@ -4,7 +4,9 @@ import {
   View,
   StyleSheet,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Image,
+  Text
 } from "react-native";
 
 import Input from "../../components/UI/Input";
@@ -12,6 +14,7 @@ import Card from "../../components/UI/Card";
 import { Dropdown } from "react-native-material-dropdown";
 import SearchDropDown from "../../components/UI/DropDownSearch";
 import RadioButtonGroup from "../../components/UI/RadioButton";
+import SelectMultiple from "react-native-select-multiple";
 
 function getMonths() {
   var monthnum = [];
@@ -65,35 +68,23 @@ const Register = props => {
   var selItems = [
     {
       id: 1,
-      name: "JavaScript"
+      name: "TANGA"
     },
     {
       id: 2,
-      name: "Java"
+      name: "GAGO"
     },
     {
       id: 3,
-      name: "Ruby"
+      name: "BALIW"
     },
     {
       id: 4,
-      name: "React Native"
+      name: "SIRAULO"
     },
     {
       id: 5,
-      name: "PHP"
-    },
-    {
-      id: 6,
-      name: "Python"
-    },
-    {
-      id: 7,
-      name: "Go"
-    },
-    {
-      id: 8,
-      name: "Swift"
+      name: "TARANTADO"
     }
   ];
 
@@ -102,24 +93,31 @@ const Register = props => {
   //// sample data radiobuttons ////
   const options = [
     {
-      key: "pay",
-      text: "Most High Pay"
+      key: "1",
+      text: "Male"
     },
     {
-      key: "performance",
-      text: "Most Perfomance"
+      key: "2",
+      text: "Female"
     },
     {
-      key: "aToZ",
-      text: "A - Z"
-    },
-    {
-      key: "zToA",
-      text: "Z - A"
+      key: "3",
+      text: "Lesbian/Gay"
     }
   ];
   //// sample data radiobuttons ////
 
+  //// sample data checkbox ////
+  const shopping = [
+    { label: "OLX", value: "1a" },
+    { label: "LAZADA", value: "2b" },
+    { label: "SHOPEE", value: "3c" }
+  ];
+
+  const [selShop, setSelShop] = useState(shopping);
+  //// sample data checkbox
+
+  //// for searchable dropdown ////
   ParentTextChange = text => {
     alert(text);
   };
@@ -127,6 +125,27 @@ const Register = props => {
   ParentItemSelect = item => {
     alert(JSON.stringify(item));
   };
+  //// for searchable dropdown ////
+
+  //// for multicheckbox ////
+  onMultiCheckChange = selectedShop => {
+    setSelShop(selectedShop);
+  };
+
+  const renderMultiCheckbox = (label, style) => {
+    return (
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        {/* <Image
+          style={{ width: 42, height: 42 }}
+          source={{ uri: "https://dummyimage.com/100x100/52c25a/fff&text=S" }}
+        /> */}
+        <View style={{ marginLeft: 10 }}>
+          <Text style={style}>{label}</Text>
+        </View>
+      </View>
+    );
+  };
+  //// for multicheckbox ////
 
   return (
     <ScrollView keyboardShouldPersistTaps="always">
@@ -135,7 +154,7 @@ const Register = props => {
         //behavior="padding"
         behavior={"position"}
         enabled
-        keyboardVerticalOffset={150}
+        keyboardVerticalOffset={100}
       >
         {/* ung presistTaps may connect sa searchdropdown */}
         {/* <Card style={styles.screen}> */}
@@ -226,16 +245,30 @@ const Register = props => {
         </View>
         <View style={styles.screen}>
           <View style={styles.item}>
-            <RadioButtonGroup options={options} />
-          </View>
-          <View style={styles.item}>
-            <SearchDropDown
-              onTextChange={ParentTextChange}
-              onItemSelect={ParentItemSelect}
-              selItems={selItems}
+            <SelectMultiple
+              items={shopping}
+              renderLabel={renderMultiCheckbox}
+              selectedItems={selShop}
+              onSelectionsChange={onMultiCheckChange}
+              rowStyle={{
+                borderBottomWidth: 0,
+                paddingTop: 0,
+                paddingBottom: 7
+              }}
             />
           </View>
+          <View style={styles.item}>
+            <RadioButtonGroup options={options} />
+          </View>
         </View>
+        <View style={(styles.screen, { width: "80%", alignSelf: "center" })}>
+          <SearchDropDown
+            onTextChange={ParentTextChange}
+            onItemSelect={ParentItemSelect}
+            selItems={selItems}
+          />
+        </View>
+
         {/* </Card> */}
       </KeyboardAvoidingView>
     </ScrollView>

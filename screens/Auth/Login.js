@@ -131,7 +131,7 @@ const Login = props => {
   };
 
   const testHandler = () => {
-    props.navigation.navigate("TestPage");
+    props.navigation.navigate("ElementSample");
   };
 
   //// viewing of password hidden

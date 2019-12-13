@@ -30,7 +30,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    margin: 5
+    margin: 5,
+    paddingLeft: 10,
+    paddingRight: 10
   },
   circle: {
     height: 20,
