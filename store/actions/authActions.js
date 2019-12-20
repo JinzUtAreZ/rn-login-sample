@@ -1,4 +1,5 @@
 export const SIGN_UP = "SIGN_UP";
+export const REGISTER_ADD = "REGISTER_ADD";
 export const ERROR_MSG = "ERROR_MSG";
 /// create a new user using firebase db ///
 import env from "../../env";
@@ -36,4 +37,9 @@ export const addUser = (email, password) => async dispatch => {
       payload: err.response.statusText
     });
   }
+};
+
+export const Register_User = () => async dispatch => {
+  try {
+  } catch (err) {}
 };

@@ -36,6 +36,7 @@ var sharedBlacklist = [
 14. npm install --save react-native-material-dropdown
 15. npm install --save react-native-searchable-dropdown
 16. npm install react-native-select-multiple 
+17. npm install react-hook-form
 
 Button element 
 https://react-native-elements.github.io/react-native-elements/docs/getting_started.html
@@ -54,3 +55,6 @@ https://upmostly.com/tutorials/settimeout-in-react-components-using-hooks
  
  javascript debugging 
  https://www.youtube.com/watch?v=-bS6u_oQFtc
+
+Form validation
+https://react-hook-form.com/get-started
